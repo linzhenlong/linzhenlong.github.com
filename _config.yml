@@ -10,3 +10,8 @@ github_username:  jekyll
 # Build settings
 markdown: kramdown
 permalink: pretty
+
+comments :
+    provider : disqus
+    disqus :
+      short_name : jekyllbootstrap
