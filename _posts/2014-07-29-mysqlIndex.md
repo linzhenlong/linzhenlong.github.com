@@ -67,8 +67,9 @@ DROP INDEX [indexName] ON mytable;
 <pre>
 <code>	
 CREATE UNIQUE INDEX indexName ON mytable(username(length)) 
-</pre>
 </code>
+</pre>
+
 修改表结构
 <pre>
 <code>	
