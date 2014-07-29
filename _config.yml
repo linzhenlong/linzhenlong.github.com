@@ -5,7 +5,7 @@ inc:
  cover_image:  blog-cover.jpg
  logo:         logo.png
   
-  Company information
+  #Company information
   company:      Incorporated
   url:          http://sendtoinc.com/
   facebook:     sendtoinc
