@@ -7,11 +7,13 @@ url: "http://linzhenlong.github.io"
 twitter_username: jekyllrb
 github_username:  jekyll
 
-# Build settings
-markdown: kramdown
-permalink: pretty
+permalink: /themes/:title/
 
-comments :
-    provider : disqus
-    disqus :
-      short_name : jekyllbootstrap
+pygments: true
+paginate: 10
+
+markdown: rdiscount
+rdiscount:
+    extensions: ['smart']
+
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
