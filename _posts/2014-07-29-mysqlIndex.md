@@ -40,7 +40,7 @@ CREATE INDEX indexName ON mytable(username(length));
 <pre>
 <code>
 ALTER mytable ADD INDEX [indexName] ON (username(length)) 
-<code>
+</code>
 </pre>
 创建表的时候直接指定
 <pre>
