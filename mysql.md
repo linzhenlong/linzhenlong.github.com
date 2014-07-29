@@ -5,7 +5,6 @@ permalink: /mysql/
 ---
 
 <div class="home">
-  <h1>linux</h1>
   <ul class="posts">
     {% for post in site.categories.mysql %}
       <li>
