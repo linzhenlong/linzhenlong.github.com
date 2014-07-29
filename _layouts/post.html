@@ -1,38 +1,44 @@
 ---
-layout: default
+layout: base
 ---
-
-<div id="post" class="container">
-
-	<div class="postthumb"><img src="/thumbnails/{{ page.thumbnail }}" /></div>
-
-	<h1>{{ page.title }}</h1>
-
-	<div class="meta clearfix">
-		<strong>Author:</strong> {{ page.author }}
-
-		{% if page.license %}
-			<br /><strong>License:</strong> {{ page.license }}
-		{% endif %}
-
-		<br /><br />
-		{% if page.homepage %}
-			<a class="btn" href="{{ page.homepage }}"><i class="icon-home"></i> Homepage</a>
-		{% endif %}
-		{% if page.download %}
-			<a class="btn" href="{{ page.download }}"><i class="icon-download-alt"></i> Download</a>
-		{% endif %}
-		{% if page.demo %}
-			<a class="btn" href="{{ page.demo }}"><i class="icon-road"></i> Demo</a>
-		{% endif %}
-		{% if page.license_link %}
-			<a class="btn" href="{{ page.license_link }}"><i class="icon-file"></i> License</a>
-		{% endif %}
-	</div>
-
-
-	<div class="post-content">
-	{{ content }}
-	</div>
-
+{% if page.cover_image %}
+<div class="article-cover">
+    <div>
+        <img src="/images/{{ page.cover_image }}" class="image">
+    </div>
 </div>
+{% endif %}
+<article>
+
+    <div class="container">
+        <header>
+            <div class="meta">
+                By <address><a rel="author" href="{{ page.author.link }}" title="{{ page.author.name }}" target="_blank">{{ page.author.name }}</a></address> &mdash;
+                <time pubdate datetime="{{ page.date | date: "%Y-%d-%B" }}" title="{{ page.date | date: "%B %d, %Y" }}">{{ page.date | date: "%B %d, %Y" }}</time>
+            </div>
+            <h1 class="title">{{ page.title }}</h1>
+            {% if page.subtitle %}<h2 class="subtitle">{{ page.subtitle }}</h2>{% endif %}
+        </header>
+
+        <section>
+            {{ content }}
+            {% include _social.html %}
+        </section>
+
+        <footer>
+            <address>
+               {% if page.author.image %}<img src="/images/{{ page.author.image }}">{% endif %}
+                <p>Written by <strong><a rel="author" href="https://twitter.com/{{ page.author.twitter }}" title="{{ page.author_name }}" target="_blank">{{ page.author.name }}</a></strong><br>
+                <span class="muted">{{ page.author.bio }}</span>
+                </p>
+            </address>
+
+        </footer>
+
+        {% if site.inc.disqus.shortname %}
+        <section>
+            {% include _disqus.html %}
+        </section>
+        {% endif %}
+    </div>
+</article>
