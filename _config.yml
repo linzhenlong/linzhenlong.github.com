@@ -10,3 +10,12 @@ github_username:  linzhenlong
 # Build settings
 markdown: kramdown
 permalink: pretty
+
+
+comments :
+
+provider : disqus
+
+disqus :
+
+short_name : linzhenlong
