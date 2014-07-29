@@ -1,12 +1,9 @@
 inc:
   # Blog Information
- title: http://linzhenlong.github.io
- email: 742946057@qq.com
- description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
- baseurl: ""
- url: "http://linzhenlong.github.io"
-  cover_image:  blog-cover.jpg
-  logo:         logo.png
+ title:        "linzhenlong.github.io"
+ subtitle:     "linzhenlong.github.io"
+ cover_image:  blog-cover.jpg
+ logo:         logo.png
   
   # Company information
   #company:      Incorporated
