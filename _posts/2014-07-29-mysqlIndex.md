@@ -14,7 +14,8 @@ CREATE TABLE mytable(   ID INT NOT NULL,    username VARCHAR(16) NOT NULL  );   
 MySQL索引类型包括：
 （1）普通索引
 这是最基本的索引，它没有任何限制。它有以下几种创建方式：
-◆创建索引
+
+创建索引
 CREATE INDEX indexName ON mytable(username(length)); 如果是CHAR，VARCHAR类型，length可以小于字段实际长度；如果是BLOB和TEXT类型，必须指定 length，下同。
 ◆修改表结构
 ALTER mytable ADD INDEX [indexName] ON (username(length)) ◆创建表的时候直接指定
