@@ -169,6 +169,156 @@ $route['default_controller'] = 'Blog';
 
 如上所述，URI 的第二片段决定会调用控制器中的哪个方法。CodeIgniter 允许你使用 _remap() 方法来废除这种规则：
 
+<pre>
+<code>
+public function _remap()
+{
+    // Some code here...
+}
+</code>
+</pre>
+注意：如果你的控制器中包含一个名为 _remap() 的方法，那么不管你的 URI 中包含什么，它总会被忽略掉。
+这个方法会废除掉由 URI 片段来决定哪个方法被调用的规则，允许你重新定义调用方法的规则（方法的路由规则）。
+
+被重新定义的方法调用方式（一般是 URI 中的第二片段）将作为一个参数传递给 _remap() ：
+<pre>
+<code>
+public function _remap($method)
+{
+    if ($method == 'some_method')
+    {
+        $this->$method();
+    }
+    else
+    {
+        $this->comments();
+    }
+}
+</code>
+</pre>
+任何附加在该方法名称之后的段都会被视为 _remap() 的第二个参数（可选）。
+这个可选的数组参数可以与PHP的call_user_func_array联用，模拟CodeIgniter的默认行为。
+<pre>
+<code>
+public function _remap($method, $params = array())
+{
+    $method = 'process_'.$method;
+    if (method_exists($this, $method))
+    {
+        return call_user_func_array(array($this, $method), $params);
+    }
+    show_404();
+}
+</code>
+</pre>
+
+处理输出
+CodeIgniter 拥有一个输出类用来确保你修改的数据会自动被传递给浏览器。
+关于这个的更多信息可以在视图和输出类里找到。
+有些时候，你可能想要自己发布修改一些最终的数据或是自己把它传递给浏览器。
+CodeIgniter 允许你给你的控制器增加一个名为 _output() 的方法来接收最终的数据。
+
+注意： 如果你的控制器包含一个 _output() 方法，那么它将总是被调用，而不是直接输出最终的数据。
+这个方法类似于OO里的析构函数，不管你调用任何方法这个方法总是会被执行。
+
+例如：
+<pre>
+<code>
+public function _output($output)
+{
+    echo $output;
+}
+</code>
+</pre>
+
+请注意，你的 _output() 将接收最终的数据。
+Benchmark和内存的使用率数据将被渲染，缓存文件会被写入（如果已启用缓存），
+并且 HTTP 头也将被发送（如果您使用该功能），然后交给 _output() 函数。
+
+为了让你的控制器输出缓存正确, 它的 _output() 函数可以这样来写:
+<pre>
+<code>
+if ($this->output->cache_expiration > 0)
+{
+    $this->output->_write_cache($output);
+}
+</code>
+</pre>
+如果您正在使用页面执行时间和内存使用统计的功能，这可能不完全准确，
+因为他们不会考虑到你所做的任何进一步的动作。请在输出类参用可用的方法，
+来控制输出以使其在任何最终进程完成之前执行。
+
+私有方法
+
+在某些情况下，你可能想要隐藏一些方法使之无法对外查阅。
+将方法私有化很简单，只要在方法名字前面加一个下划线（“_”）做前缀就无法通过 URL 访问到了。
+例如，如果你有一个像这样的方法：
+
+<pre>
+<code>
+private function _utility()
+{
+  // some code
+}
+</code>
+</pre>
+
+那么，通过下面这样的 URL 进行访问是无法访问到的：
+<pre>
+<code>
+http://test.lo/index.php/blog/_utility/
+
+</code>
+</pre>
+
+如何将控制器放入子文件夹中
+如果你在建立一个大型的应用程序，你会发现 CodeIgniter 可以很方便的将控制器放到一些子文件夹中。
+
+只要在 application/controllers 目录下创建文件夹并放入你的控制器就可以了。
+
+注意：  如果你要使用某个子文件夹下的功能，就要保证 URI 的第一个片段是用于描述这个文件夹的。例如说你有一个控制器在这里：
+
+<pre>
+<code>
+application/controllers/products/shoes.php
+</code>
+</pre>
+调用这个控制器的时候你的 URI 要这么写：
+<pre>
+<code>
+http://test.lo/index.php/products/shoes/show/123
+</code>
+</pre>
+你的每个子文件夹中需要包含一个默认的控制器，这样如果 URI 中只有子文件夹而没有具体功能的时候它将被调用。
+只要将你作为默认的控制器名称在 application/config/routes.php 文件中指定就可以了。
+
+CodeIgniter 也允许你使用 URI 路由 功能来重新定向 URI。
+
+构造函数
+
+如果要在你的任意控制器中使用构造函数的话，那么必须在里面加入下面这行代码：
+
+<pre>
+<code>
+parent::__construct();
+</code>
+</pre>
+
+这行代码的必要性在于，你此处的构造函数会覆盖掉这个父控制器类中的构造函数，所以我们要手动调用它。
+
+<pre>
+<code>
+class Blog extends CI_Controller {
+
+       public function __construct()
+       {
+            parent::__construct();
+       }
+}
+</code>
+</pre>
+如果你需要设定某些默认的值或是在实例化类的时候运行一个默认的程序，那么构造函数在这方面就非常有用了。
+构造函数并不能返回值，但是可以用来设置一些默认的功能。
 
 
 
