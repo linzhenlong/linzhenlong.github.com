@@ -116,6 +116,64 @@ http://test.lo/index.php/blog/comments/
 </pre>
 你应该看到新的信息了：看这里！
 
+将 URI 片段传递给方法
+
+如果你的 URI 超过两个部分，那么超过的将被作为参数传递给方法。
+
+举例来说，如果你的 URI 是这样的：
+<pre>
+<code>
+http://test.lo/index.php/products/shoes/sandals/123
+</code>
+</pre>
+URI 的第3和第4部分会被传递给你的方法（“sandals” 和 “123”）：
+<pre>
+<code>
+class Products extends CI_Controller {
+
+    public function shoes($sandals, $id)
+    {
+        echo $sandals;
+        echo $id;
+    }
+}
+</code>
+</pre>
+上面的方法调用时必须给两个相应的参数，要不然会出错。当然你也可以像下面这样写，就不用在调用的时候给参数了！
+<pre>
+<code>
+class Products extends CI_Controller {
+
+    public function shoes($sandals='Test', $id=1)
+    {
+        echo $sandals;
+        echo $id;
+    }
+}
+</code>
+</pre>
+
+<strong>注意：</strong>如果你使用 URI 路由特性，则传递到方法中的 URI 片段将被重新路由一次。
+
+定义默认控制器
+当你的网站不存在某个URI 或者 用户直接从根目录访问的时候，CodeIgniter 会加载默认控制器。
+打开 application/config/routes.php 文件来设置默认控制器：
+<pre>
+<code>
+$route['default_controller'] = 'Blog';
+</code>
+</pre>
+这里的 Blog 就是你希望使用的控制器的名字。如果此时你不指定任何 URI 片段来访问你的主页就会看到默认的“Hello World”信息。
+
+重新定义方法的调用规则
+
+如上所述，URI 的第二片段决定会调用控制器中的哪个方法。CodeIgniter 允许你使用 _remap() 方法来废除这种规则：
+
+
+
+
+
+
 
 
 
