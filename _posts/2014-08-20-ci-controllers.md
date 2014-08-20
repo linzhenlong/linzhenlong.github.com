@@ -41,12 +41,84 @@ class Blog extends CI_Controller
     public function test($id = '1', $name = 'blog')
     {
         echo $id;
-        echo "<br>";
         echo $name;
     }
 }
 </code>
 </pre>
+然后保存文件到 application/controllers/ 文件夹。
+
+现在使用类似这样的 URL 访问你的站点：
+<pre>
+<code>
+http://test.lo/index.php/blog/
+</code>
+</pre>
+如果你做的没错，你应该看到Hello World！.
+
+注意：类名必须以大写字母开头。换句话说，这是有效的：
+
+<pre>
+<code>
+class Blog extends CI_Controller {
+
+}
+</code>
+</pre>
+下面的blog首字母b小写，是属于无效的写法：
+
+<pre>
+<code>
+class blog extends CI_Controller {
+
+}
+</code>
+</pre>
+同时，始终确保你的控制器扩展自父控制器类，以便它能够继承其所有的方法。
+
+方法
+上面的例子中用到的方法名是 index()。如果 URI 的第二部分为空的话，会默认载入 “index” 方法。也可以将地址写成这样来访问 “Hello World”：
+<pre>
+<code>
+http://test.lo/index.php/blog/index/
+</code>
+</pre>
+
+URI 的第二部分是用来决定调用控制器中哪个方法的。
+
+我们再来试试。在你的控制器中加入一个新的方法:
+<pre>
+<code>
+class Blog extends CI_Controller {
+
+ function __construct()
+ {
+  parent::__construct();
+ }
+
+ public function index()
+ {
+  echo 'Hello World！';
+ }
+
+ public function comments()
+ {
+  echo '看这里！';
+ }
+}
+</code>
+</pre>
+现在在地址栏中输入下面的内容来访问 comments 方法：
+<pre>
+<code>
+http://test.lo/index.php/blog/comments/
+</code>
+</pre>
+你应该看到新的信息了：看这里！
+
+
+
+
 
 
 
