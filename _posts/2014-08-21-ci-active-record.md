@@ -362,3 +362,88 @@ $this->db->or_like('body', $match);
 </pre>
 说明: or_like() 曾经被称为 orlike(), 后者已经过时，现已从代码中移除 orlike()。
 
+$this->db->not_like();
+<hr>
+本函数与 like() 几乎完全相同，唯一的区别是它生成 NOT LIKE 语句:
+<pre>
+<code>
+$this->db->not_like('title', 'match');
+
+// WHERE title NOT LIKE '%match%
+</code>
+</pre>
+$this->db->or_not_like();
+<hr>
+本函数与 not_like() 几乎完全相同，唯一的区别是多个实例之间是用 OR 连接起来的:
+<pre>
+<code>
+$this->db->like('title', 'match');
+$this->db->or_not_like('body', 'match');
+
+// WHERE title LIKE '%match%' OR body NOT LIKE '%match%'
+</code>
+</pre>
+$this->db->group_by();
+<hr>
+允许你编写查询语句中的 GROUP BY 部分:
+<pre>
+<code>
+$this->db->group_by("title");
+
+// 生成: GROUP BY title
+</code>
+</pre>
+你也可以把多个值作为数组传递过去:
+<pre>
+<code>
+$this->db->group_by(array("title", "date"));
+// 生成: GROUP BY title, date
+</code>
+</pre>
+
+说明: group_by() 曾经被称为 groupby(), 后者已经过时，现已从代码中移除 groupby()。
+
+$this->db->distinct();
+<hr>
+为查询语句添加 "DISTINCT" 关键字:
+<pre>
+<code>
+$this->db->distinct();
+$this->db->get('table');
+
+// 生成: SELECT DISTINCT * FROM table
+</code>
+</pre>
+$this->db->having();
+<hr>
+允许你为你的查询语句编写 HAVING 部分。有两种语法形式，一个或两个参数都可以:
+<pre>
+<code>
+$this->db->having('user_id = 45');
+// 生成: HAVING user_id = 45
+
+$this->db->having('user_id', 45);
+// 生成: HAVING user_id = 45
+</code>
+</pre>
+你也可以把多个值通过数组传递过去:
+<pre>
+<code>
+$this->db->having(array('title =' => 'My Title', 'id <' => $id));
+
+// 生成: HAVING title = 'My Title' AND id < 45
+</code>
+</pre>
+如果你正在使用一个由CodeIgniter进行转义保护的数据库，为了避免内容转义，你可以传递可选的第三个参数，并将其设置为FALSE。
+<pre>
+<code>
+$this->db->having('user_id', 45);
+// 生成: HAVING `user_id` = 45 (在诸如MySQL等数据库中)
+$this->db->having('user_id', 45, FALSE);
+// 生成: HAVING user_id = 45
+</code>
+</pre>
+$this->db->or_having();
+<hr>
+与 having() 函数几乎完全一样，唯一的区别是多个子句之间是用 "OR" 分隔的。
+
