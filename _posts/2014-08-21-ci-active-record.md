@@ -157,9 +157,146 @@ $query = $this->db->get();
 // JOIN comments ON comments.id = blogs.id
 </code>
 </pre>
+如果你想要在查询中使用多个连接，可以多次调用本函数。
 
+如果你需要指定 JOIN 的类型，你可以通过本函数的第三个参数来指定。
+可选项包括：left, right, outer, inner, left outer, 以及 right outer.
+<pre>
+<code>
+$this->db->join('comments', 'comments.id = blogs.id', 'left');
 
+// 生成: LEFT JOIN comments ON comments.id = blogs.id
+</code>
+</pre>
 
+$this->db->where();
+本函数允许你使用四种方法中的一种来设置 WHERE 子句:
+说明: 传递给本函数的所有值都会被自动转义，以便生成安全的查询。
+
+1.简单的 key/value 方法:
+<pre>
+<code>
+$this->db->where('name', $name);
+
+// 生成: WHERE name = 'Joe'
+</code>
+</pre>
+请注意等号已经为你添加。
+如果你多次调用本函数，那么这些条件会被 AND 连接起来:
+<pre>
+<code>
+$this->db->where('name', $name);
+$this->db->where('title', $title);
+$this->db->where('status', $status);
+
+// WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
+</code>
+</pre>
+2.自定义 key/value 方法:
+你可以在第一个参数中包含一个运算符，以便控制比较:
+<pre>
+<code>
+$this->db->where('name !=', $name);
+$this->db->where('id <', $id);
+
+// 生成: WHERE name != 'Joe' AND id < 45
+</code>
+</pre>
+3.关联数组方法:
+<pre>
+<code>
+$array = array('name' => $name, 'title' => $title, 'status' => $status);
+
+$this->db->where($array);
+
+// 生成: WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
+</code>
+</pre>
+使用这个方法时你也可以包含运算符:
+<pre>
+<code>
+$array = array('name !=' => $name, 'id <' => $id, 'date >' => $date);
+
+$this->db->where($array);
+</code>
+</pre>
+
+4.自定义字符串:
+你可以手动的编写子句:
+<pre>
+<code>
+$where = "name='Joe' AND status='boss' OR status='active'";
+
+$this->db->where($where);
+</code>
+</pre>
+
+$this->db->where() 接受可选的第三个参数。如果你将它设置为 FALSE, CodeIgniter 将不会为你那些包含反勾号的字段名或表名提供保护。
+<pre>
+<code>
+$this->db->where('MATCH (field) AGAINST ("value")', NULL, FALSE);
+</code>
+</pre>
+$this->db->or_where();
+本函数与上面的那个几乎完全相同，唯一的区别是本函数生成的子句是用 OR 来连接的:
+<pre>
+<code>
+$this->db->where('name !=', $name);
+$this->db->or_where('id >', $id);
+
+// 生成: WHERE name != 'Joe' OR id > 50
+</code>
+</pre>
+说明: or_where() 以前被叫作 orwhere(), 后者已经过时，现已从代码中移除 orwhere()。
+
+$this->db->where_in();
+
+生成一段 WHERE field IN ('item', 'item') 查询语句，如果合适的话，用 AND 连接起来。
+
+<pre>
+<code>
+$names = array('Frank', 'Todd', 'James');
+$this->db->where_in('username', $names);
+// 生成: WHERE username IN ('Frank', 'Todd', 'James')
+</code>
+</pre>
+
+$this->db->or_where_in();
+
+生成一段 WHERE field IN ('item', 'item') 查询语句，如果合适的话，用 OR 连接起来。
+<pre>
+<code>
+$names = array('Frank', 'Todd', 'James');
+$this->db->or_where_in('username', $names);
+// 生成: OR username IN ('Frank', 'Todd', 'James')
+</code>
+</pre>
+
+$this->db->where_not_in();
+
+生成一段 WHERE field NOT IN ('item', 'item') 查询语句，如果合适的话，用 AND 连接起来。
+<pre>
+<code>
+$names = array('Frank', 'Todd', 'James');
+$this->db->where_not_in('username', $names);
+// 生成: WHERE username NOT IN ('Frank', 'Todd', 'James')
+</code>
+</pre>
+
+$this->db->or_where_not_in();
+生成一段 WHERE field NOT IN ('item', 'item') 查询语句，如果合适的话，用 OR 连接起来。
+<pre>
+<code>
+$names = array('Frank', 'Todd', 'James');
+$this->db->or_where_not_in('username', $names);
+// 生成: OR username NOT IN ('Frank', 'Todd', 'James')
+</code>
+</pre>
+
+$this->db->like();
+<hr>
+本函数允许你生成 LIKE 子句，在做查询时非常有用。
+说明: 传递给本函数的所有值都会被自动转义。
 
 
 
