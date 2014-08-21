@@ -446,4 +446,32 @@ $this->db->having('user_id', 45, FALSE);
 $this->db->or_having();
 <hr>
 与 having() 函数几乎完全一样，唯一的区别是多个子句之间是用 "OR" 分隔的。
+$this->db->order_by();
+<hr>
+帮助你设置一个 ORDER BY 子句。第一个参数是你想要排序的字段名。第二个参数设置结果的顺序，可用的选项包括 asc (升序)或 desc(降序), 或 random(随机)。
+<pre>
+<code>
+$this->db->order_by("title", "desc");
 
+// 生成: ORDER BY title DESC
+</code>
+</pre>
+你也可以在第一个参数中传递你自己的字符串:
+<pre>
+<code>
+$this->db->order_by('title desc, name asc');
+
+// 生成: ORDER BY title DESC, name ASC
+</code>
+</pre>
+或者，多次调用本函数就可以排序多个字段。
+<pre>
+<code>
+$this->db->order_by("title", "desc");
+$this->db->order_by("name", "asc");
+
+// 生成: ORDER BY title DESC, name ASC
+</code>
+</pre>
+说明: order_by() 曾经被称为 orderby(), 后者已经过时，现已从代码中移除 orderby()。
+说明: 目前 Oracle 和 MSSQL 的驱动还不支持随机排序，将被默认设置为 'ASC'(升序)。
