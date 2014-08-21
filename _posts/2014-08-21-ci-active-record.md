@@ -61,7 +61,7 @@ $query = $this->db->get_where('mytable', array('id' => $id), $limit, $offset);
 </code>
 </pre>
 $this->db->select();
-
+<hr>
 允许你在SQL查询中写 SELECT 部分:
 <pre>
 <code>
@@ -83,7 +83,7 @@ $query = $this->db->get('mytable');
 </pre>
 
 $this->db->select_max();
-
+<hr>
 为你的查询编写一个 "SELECT MAX(field)"。你可以选择性的给出第二个参数，以便重命名结果字段名。
 <pre>
 <code>
@@ -97,7 +97,7 @@ $query = $this->db->get('members');
 </code>
 </pre>
 $this->db->select_min();
-
+<hr>
 为你的查询编写一个 "SELECT MIN(field)" 。与 select_max() 相似, 你可以选择性地给出第二个参数，用来给结果字段重命名。
 <pre>
 <code>
@@ -108,7 +108,7 @@ $query = $this->db->get('members');
 </pre>
 
 $this->db->select_avg();
-
+<hr>
 为你的查询编写一个 "SELECT AVG(field)" 。与 select_max() 相似, 你可以选择性地给出第二个参数，用来给结果字段重命名。
 <pre>
 <code>
@@ -129,6 +129,7 @@ $query = $this->db->get('members');
 </pre>
 
 $this->db->from();
+<hr>
 允许你编写查询中的FROM部分:
 <pre>
 <code>
@@ -143,6 +144,7 @@ $query = $this->db->get();
 说明: 正如前面所说，查询中的FROM部分可以在 $this->db->get() 函数中指定，所以你可以根据自己的喜好来选择使用哪个方法。
 
 $this->db->join();
+<hr>
 允许你编写查询中的JOIN部分:
 <pre>
 <code>
@@ -170,6 +172,7 @@ $this->db->join('comments', 'comments.id = blogs.id', 'left');
 </pre>
 
 $this->db->where();
+<hr>
 本函数允许你使用四种方法中的一种来设置 WHERE 子句:
 说明: 传递给本函数的所有值都会被自动转义，以便生成安全的查询。
 
@@ -238,6 +241,7 @@ $this->db->where('MATCH (field) AGAINST ("value")', NULL, FALSE);
 </code>
 </pre>
 $this->db->or_where();
+<hr>
 本函数与上面的那个几乎完全相同，唯一的区别是本函数生成的子句是用 OR 来连接的:
 <pre>
 <code>
@@ -250,7 +254,7 @@ $this->db->or_where('id >', $id);
 说明: or_where() 以前被叫作 orwhere(), 后者已经过时，现已从代码中移除 orwhere()。
 
 $this->db->where_in();
-
+<hr>
 生成一段 WHERE field IN ('item', 'item') 查询语句，如果合适的话，用 AND 连接起来。
 
 <pre>
@@ -262,7 +266,7 @@ $this->db->where_in('username', $names);
 </pre>
 
 $this->db->or_where_in();
-
+<hr>
 生成一段 WHERE field IN ('item', 'item') 查询语句，如果合适的话，用 OR 连接起来。
 <pre>
 <code>
@@ -273,7 +277,7 @@ $this->db->or_where_in('username', $names);
 </pre>
 
 $this->db->where_not_in();
-
+<hr>
 生成一段 WHERE field NOT IN ('item', 'item') 查询语句，如果合适的话，用 AND 连接起来。
 <pre>
 <code>
@@ -284,6 +288,7 @@ $this->db->where_not_in('username', $names);
 </pre>
 
 $this->db->or_where_not_in();
+<hr>
 生成一段 WHERE field NOT IN ('item', 'item') 查询语句，如果合适的话，用 OR 连接起来。
 <pre>
 <code>
@@ -297,7 +302,63 @@ $this->db->like();
 <hr>
 本函数允许你生成 LIKE 子句，在做查询时非常有用。
 说明: 传递给本函数的所有值都会被自动转义。
+1.简单 key/value 方式:
+<pre>
+<code>
+$this->db->like('title', 'match');
 
+// 生成: WHERE title LIKE '%match%'
+</code>
+</pre>
+如果你多次调用本函数，那么这些条件将由 AND 连接起来:
+<pre>
+<code>
+$this->db->like('title', 'match');
+$this->db->like('body', 'match');
 
+// WHERE title LIKE '%match%' AND body LIKE '%match%'
+</code>
+</pre>
+如果你想要控制通配符(%)所出现的位置，你可以使用可选的第三个参数。可用的选项是 'before', 'after' 以及 'both' (这是默认值)。
+<pre>
+<code>
+$this->db->like('title', 'match', 'before');
+// 生成: WHERE title LIKE '%match'
 
+$this->db->like('title', 'match', 'after');
+// 生成: WHERE title LIKE 'match%'
+
+$this->db->like('title', 'match', 'both');
+// 生成: WHERE title LIKE '%match%'
+</code>
+</pre>
+如果你不想使用百分号(%)，你可以给第三个可选的参数传递一个'none'。
+<pre>
+<code>
+$this->db->like('title', 'match', 'none');
+// Produces: WHERE title LIKE 'match'
+</code>
+</pre>
+2.关联数组方式:
+<pre>
+<code>
+$array = array('title' => $match, 'page1' => $match, 'page2' => $match);
+
+$this->db->like($array);
+
+// WHERE title LIKE '%match%' AND page1 LIKE '%match%' AND page2 LIKE '%match%'
+</code>
+</pre>
+$this->db->or_like();
+<hr>
+本函数与上面那个函数几乎完全相同，唯一的区别是多个实例之间是用 OR 连接起来的:
+<pre>
+<code>
+$this->db->like('title', 'match');
+$this->db->or_like('body', $match);
+
+// WHERE title LIKE '%match%' OR body LIKE '%match%'
+</code>
+</pre>
+说明: or_like() 曾经被称为 orlike(), 后者已经过时，现已从代码中移除 orlike()。
 
