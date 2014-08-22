@@ -475,3 +475,22 @@ $this->db->order_by("name", "asc");
 </pre>
 说明: order_by() 曾经被称为 orderby(), 后者已经过时，现已从代码中移除 orderby()。
 说明: 目前 Oracle 和 MSSQL 的驱动还不支持随机排序，将被默认设置为 'ASC'(升序)。
+
+**$this->db->limit**
+
+限制查询所返回的结果数量
+
+    $this->db->limit(10);
+    // 生成LIMIT 10
+
+第二个参数设置偏移量
+    
+    $this->db->limit(10,20);
+    // 生成limit 20,10 (仅限mysql中。其他数据库有稍微不同的语法)
+    
+ **$this->db->count_all_results()**
+ 
+允许不获得某个特定的Active Record 查询所返回的结果数量。
+
+
+
