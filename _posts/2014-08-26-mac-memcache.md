@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "在Mac OS X中完善PHP环境：memcache
+title:  "在Mac OS X中完善PHP环境：memcache"
 date:   2014-08-22 16:36:18
 categories: mac
 ---
