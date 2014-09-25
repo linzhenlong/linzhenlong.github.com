@@ -1,3 +1,10 @@
+---
+layout: post
+title:  "Elasticsearch 学习"
+date:   2014-09-25 14:12:18
+categories: php
+---
+
 ##Elasticsearch 学习
 
 
