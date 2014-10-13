@@ -1,6 +1,6 @@
 ---
 layout: page
-title:  mysql
+title:  elasticsearch
 permalink: /elasticsearch/
 ---
 
