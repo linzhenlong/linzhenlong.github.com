@@ -2,7 +2,7 @@
 layout: post
 title:  "Elasticsearch 学习"
 date:   2014-09-25 14:12:18
-categories: php
+categories: elasticsearch
 ---
 
 ##Elasticsearch 学习
