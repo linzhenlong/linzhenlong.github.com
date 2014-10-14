@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "分布式搜索引擎Elasticsearch 插件汇总"
-date:   2014-10-13 16:36:18
+date:   2014-10-14 16:36:18
 categories: elasticsearch
 ---
 
