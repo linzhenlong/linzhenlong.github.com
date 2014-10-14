@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "分布式搜索elasticsearch配置文件详解"
+title:  "分布式搜索引擎Elasticsearch 插件汇总"
 date:   2014-10-13 16:36:18
-categories: 分布式搜索引擎Elasticsearch 插件汇总
+categories: elasticsearch
 ---
 
 原文地址：http://blog.csdn.net/zhuzhenyu307/article/details/37929217
