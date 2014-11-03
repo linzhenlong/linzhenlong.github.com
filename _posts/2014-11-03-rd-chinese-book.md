@@ -5,9 +5,6 @@ date:   2014-11-03 16:36:18
 categories: book
 ---
 
-##编程中文书籍汇总
-
-
 ###操作系统
 
 1.    [开源世界旅行手册](http://i.linuxtoy.org/docs/guide/index.html)
