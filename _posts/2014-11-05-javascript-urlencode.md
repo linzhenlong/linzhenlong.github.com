@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "分布式搜索elasticsearch单机与服务器环境搭建"
+title:  "js urlencode , encodeURIComponent"
 date:   2014-10-13 16:36:18
 categories: javascript
 ---
