@@ -11,7 +11,7 @@ categories: redis
 
 ### 二、相关命令:
 
- <table class="table table-bordered table-striped table-condensed">
+ <table style="border-right:1px solid #F00;border-bottom:1px solid #F00;">
      <tr>
         <td>命令原型</td>
         <td>命令描述</td>
