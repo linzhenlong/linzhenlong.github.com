@@ -130,15 +130,15 @@ categories: redis
     127.0.0.1:6379> STRLEN mykey       #获取指定Key的字符长度，等效于C库中strlen函数
     (integer) 14  
  
- 2. INCR/DECR/INCRBY/DECRBY:
-    
+ 2.INCR/DECR/INCRBY/DECRBY:
+ 
     127.0.0.1:6379> set mykey 20    #设置mykey 初始值20
     OK
-    127.0.0.1:6379> INCR mykey      #使用incr 使mykey自增默认每次自增1
+    127.0.0.1:6379> INCR mykey      #使用incr 使mykey自增
     (integer) 21
     127.0.0.1:6379> INCR mykey
     (integer) 22
-    127.0.0.1:6379> DECR mykey      #使用decr 使mykey自减默认每次自减1
+    127.0.0.1:6379> DECR mykey      #使用decr 使mykey自减
     (integer) 21
     127.0.0.1:6379> DECR mykey
     (integer) 20
@@ -146,3 +146,109 @@ categories: redis
     (integer) 1
     127.0.0.1:6379> DECR mykey      #对空值执行递增操作，其原值被设定为0，递增后的值为1
     (integer) -1
+    127.0.0.1:6379> del mykey       #删除已有键
+    (integer) 1
+    127.0.0.1:6379> INCR mykey      #对空值执行递增操作，其原值被设定为0，递增后的值为1
+	(integer) 1
+    127.0.0.1:6379> set mykey hello  #将该键的Value设置为不能转换为整型的普通字符串。
+	OK
+	127.0.0.1:6379> INCR mykey        #在该键上再次执行递增操作时，Redis将报告错误信息。
+	(error) ERR value is not an integer or out of range
+	127.0.0.1:6379> set mykey 10      #mykey 重新赋值10
+	OK
+	127.0.0.1:6379> INCRBY mykey 5
+	(integer) 15
+	127.0.0.1:6379> DECRBY mykey 10
+	(integer) 5
+	
+3.GETSET：
+
+	127.0.0.1:6379> INCR mycounter   #将计数器的值原子性递增1
+	(integer) 1
+	#在获取计数器原有值的同时，并将其设置为新值，这两个操作原子性的同时完成。
+	127.0.0.1:6379> GETSET mycounter 0
+	"1"
+	127.0.0.1:6379> get mycounter #查看设置后的结果
+	"0"
+
+4.SETEX:
+
+	127.0.0.1:6379> SETEX mykey 100 "hello"  #设置指定Key的过期时间为10秒。
+	OK
+	127.0.0.1:6379> ttl mykey          #通过ttl命令查看一下指定Key的剩余存活时间(秒数)，0表示已经过期，-1表示永不过期。
+	(integer) 98
+	127.0.0.1:6379> get mykey          #在该键的存活期内我们仍然可以获取到它的Value。
+	"hello"
+	127.0.0.1:6379> ttl mykey          #该ttl命令的返回值显示，该Key已经过期。
+	(integer) -2
+	127.0.0.1:6379> get mykey          #获取已过期的Key将返回nil。
+	(nil)
+	
+5.SETNX:
+
+	127.0.0.1:6379> SETNX mykey "hello"  #该键并不存在，因此该命令执行成功。
+	(integer) 1
+	127.0.0.1:6379> SETNX mykey "word"   #该键已经存在，因此本次设置没有产生任何效果。
+	(integer) 0
+	127.0.0.1:6379> get mykey          #从结果可以看出，返回的值仍为第一次设置的值。
+	"hello"
+	
+6.SETRANGE/GETRANGE:
+
+	127.0.0.1:6379> set mykey "hello world"  #设定初始值。
+	OK
+	127.0.0.1:6379> SETRANGE mykey 6 dd     #从第六个字节开始替换2个字节(dd只有2个字节)
+	(integer) 11
+	127.0.0.1:6379> get mykey 				#查看替换后的值
+	"hello ddrld"
+	127.0.0.1:6379> SETRANGE mykey 20 dd  #offset已经超过该Key原有值的长度了，该命令将会在末尾补0。
+	(integer) 22
+	127.0.0.1:6379> get mykey            #查看补0后替换的结果。
+	"hello ddrld\x00\x00\x00\x00\x00\x00\x00\x00\x00dd"
+	127.0.0.1:6379> del mykey           #删除掉
+	(integer) 1
+	127.0.0.1:6379> SETRANGE mykey 2 dd   #替换空值
+	(integer) 4
+	127.0.0.1:6379> get mykey   
+	"\x00\x00dd"
+	127.0.0.1:6379> set mykey "0123456789"  #设置一个新值
+	OK
+	127.0.0.1:6379> GETRANGE mykey 1 2  #截取该键的Value，从第一个字节开始，到第二个字节结束。
+	"12"
+	127.0.0.1:6379> GETRANGE mykey 1 100  #20已经超过Value的总长度，因此将截取第一个字节后面的所有字节。
+	"123456789"
+	
+7.SETBIT/GETBIT:
+
+	redis 127.0.0.1:6379> del mykey
+    (integer) 1
+    redis 127.0.0.1:6379> setbit mykey 7 1       #设置从0开始计算的第七位BIT值为1，返回原有BIT值0
+    (integer) 0
+    redis 127.0.0.1:6379> get mykey                #获取设置的结果，二进制的0000 0001的十六进制值为0x01
+    "\x01"
+    redis 127.0.0.1:6379> setbit mykey 6 1       #设置从0开始计算的第六位BIT值为1，返回原有BIT值0
+    (integer) 0
+    redis 127.0.0.1:6379> get mykey                #获取设置的结果，二进制的0000 0011的十六进制值为0x03
+    "\x03"
+    redis 127.0.0.1:6379> getbit mykey 6          #返回了指定Offset的BIT值。
+    (integer) 1
+    redis 127.0.0.1:6379> getbit mykey 10        #Offset已经超出了value的长度，因此返回0。
+    (integer) 0
+    
+8.MSET/MGET/MSETNX:
+
+	127.0.0.1:6379> mset key1 "hello" key2 "world"   #批量设置了key1和key2两个键。
+	OK
+	127.0.0.1:6379> MGET key1 key2      #批量获取key1、key2
+	1) "hello"
+	2) "world"
+	127.0.0.1:6379> MSETNX key3 "fuck" key4 "you"    #批量设置了key3和key4两个键，因为之前他们并不存在，所以该命令执行成功并返回1。
+	(integer) 1
+	127.0.0.1:6379> mget key3 key4         
+	1) "fuck"
+	2) "you"
+	127.0.0.1:6379> MSETNX key3 "fucks" key6 "cnm"    #批量设置了key3和key6两个键，但是key3已经存在，所以该命令执行失败并返回0。
+	(integer) 0
+	127.0.0.1:6379> mget key3 key6             #批量获取key3和key6，由于key6没有设置成功，所以返回nil。
+	1) "fuck"
+	2) (nil)
