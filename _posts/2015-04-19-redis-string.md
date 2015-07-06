@@ -11,61 +11,61 @@ categories: redis
 
 ### 二、相关命令:
 
- <table style="border-right:1px solid #F00;border-bottom:1px solid #F00;">
+ <table style="border-collapse:collapse">
      <tr>
-        <td>命令原型</td>
-        <td>命令描述</td>
-        <td>返回值</td>
+        <td style="border:1px solid #ddd">命令原型</td>
+        <td style="border:1px solid #ddd">命令描述</td>
+        <td style="border:1px solid #ddd">返回值</td>
      </tr>
      <tr>
-        <td>APPEND key value</td>
-        <td>如果该Key已经存在，APPEND命令将参数Value的数据追加到已存在Value的末尾。如果该Key不存在，APPEND命令将会创建一个新的Key/Value。</td>
-        <td>追加后Value的长度。</td>
+        <td style="border:1px solid #ddd">APPEND key value</td>
+        <td style="border:1px solid #ddd">如果该Key已经存在，APPEND命令将参数Value的数据追加到已存在Value的末尾。如果该Key不存在，APPEND命令将会创建一个新的Key/Value。</td>
+        <td style="border:1px solid #ddd">追加后Value的长度。</td>
      </tr>
      <tr>
-         <td>DECR key</td>
-         <td>将指定Key的Value原子性的递减1。如果该Key不存在，其初始值为0，在decr之后其值为-1。如果Value的值不能转换为整型值，如Hello，该操作将执行失败并返回相应的错误信息。注意：该操作的取值范围是64位有符号整型。</td>
-         <td>递减后的Value值。</td>
+         <td style="border:1px solid #ddd" >DECR key</td>
+         <td style="border:1px solid #ddd">将指定Key的Value原子性的递减1。如果该Key不存在，其初始值为0，在decr之后其值为-1。如果Value的值不能转换为整型值，如Hello，该操作将执行失败并返回相应的错误信息。注意：该操作的取值范围是64位有符号整型。</td>
+         <td style="border:1px solid #ddd">递减后的Value值。</td>
      </tr>
      <tr>
-          <td>INCR key</td>
-          <td>将指定Key的Value原子性的递增1。如果该Key不存在，其初始值为0，在incr之后其值为1。如果Value的值不能转换为整型值，如Hello，该操作将执行失败并返回相应的错误信息。注意：该操作的取值范围是64位有符号整型。 </td>
-          <td>递增后的Value值。</td>
+          <td style="border:1px solid #ddd">INCR key</td>
+          <td style="border:1px solid #ddd">将指定Key的Value原子性的递增1。如果该Key不存在，其初始值为0，在incr之后其值为1。如果Value的值不能转换为整型值，如Hello，该操作将执行失败并返回相应的错误信息。注意：该操作的取值范围是64位有符号整型。 </td>
+          <td style="border:1px solid #ddd">递增后的Value值。</td>
       </tr>
       <tr>
-           <td>DECRBY key decrement </td>
-           <td>将指定Key的Value原子性的减少decrement。如果该Key不存在，其初始值为0，在decrby之后其值为-decrement。如果Value的值不能转换为整型值，如Hello，该操作将执行失败并返回相应的错误信息。注意：该操作的取值范围是64位有符号整型。 </td>
-           <td>减少后的Value值。</td>
+           <td style="border:1px solid #ddd">DECRBY key decrement </td>
+           <td style="border:1px solid #ddd">将指定Key的Value原子性的减少decrement。如果该Key不存在，其初始值为0，在decrby之后其值为-decrement。如果Value的值不能转换为整型值，如Hello，该操作将执行失败并返回相应的错误信息。注意：该操作的取值范围是64位有符号整型。 </td>
+           <td style="border:1px solid #ddd">减少后的Value值。</td>
       </tr>
       <tr>
-            <td>INCRBY key increment</td>
-            <td>将指定Key的Value原子性的增加increment。如果该Key不存在，其初始值为0，在incrby之后其值为increment。如果Value的值不能转换为整型值，如Hello，该操作将执行失败并返回相应的错误信息。注意：该操作的取值范围是64位有符号整型。 </td>
-            <td>增加后的Value值。</td>
+            <td style="border:1px solid #ddd">INCRBY key increment</td>
+            <td style="border:1px solid #ddd">将指定Key的Value原子性的增加increment。如果该Key不存在，其初始值为0，在incrby之后其值为increment。如果Value的值不能转换为整型值，如Hello，该操作将执行失败并返回相应的错误信息。注意：该操作的取值范围是64位有符号整型。 </td>
+            <td style="border:1px solid #ddd">增加后的Value值。</td>
       </tr>
       <tr>
-            <td>GET key </td>
-            <td>获取指定Key的Value。如果与该Key关联的Value不是string类型，Redis将返回错误信息，因为GET命令只能用于获取string Value。 </td>
-            <td>与该Key相关的Value，如果该Key不存在，返回nil。</td>
+            <td style="border:1px solid #ddd">GET key </td>
+            <td style="border:1px solid #ddd">获取指定Key的Value。如果与该Key关联的Value不是string类型，Redis将返回错误信息，因为GET命令只能用于获取string Value。 </td>
+            <td style="border:1px solid #ddd">与该Key相关的Value，如果该Key不存在，返回nil。</td>
       </tr>
       <tr>
-            <td>SET key value </td>
-            <td>设定该Key持有指定的字符串Value，如果该Key已经存在，则覆盖其原有值。</td>
-            <td>总是返回"OK"。</td>
+            <td style="border:1px solid #ddd">SET key value </td>
+            <td style="border:1px solid #ddd">设定该Key持有指定的字符串Value，如果该Key已经存在，则覆盖其原有值。</td>
+            <td style="border:1px solid #ddd">总是返回"OK"。</td>
       </tr>
       <tr>
-            <td>GETSET key value</td>
-            <td>原子性的设置该Key为指定的Value，同时返回该Key的原有值。和GET命令一样，该命令也只能处理string Value，否则Redis将给出相关的错误信息。</td>
-            <td>返回该Key的原有值，如果该Key之前并不存在，则返回nil。</td>
+            <td style="border:1px solid #ddd">GETSET key value</td>
+            <td style="border:1px solid #ddd">原子性的设置该Key为指定的Value，同时返回该Key的原有值。和GET命令一样，该命令也只能处理string Value，否则Redis将给出相关的错误信息。</td>
+            <td style="border:1px solid #ddd">返回该Key的原有值，如果该Key之前并不存在，则返回nil。</td>
       </tr>
       <tr>
-            <td>STRLEN key</td>
-            <td>返回指定Key的字符值长度，如果Value不是string类型，Redis将执行失败并给出相关的错误信息。</td>
-            <td>返回指定Key的Value字符长度，如果该Key不存在，返回0。</td>
+            <td style="border:1px solid #ddd">STRLEN key</td>
+            <td style="border:1px solid #ddd">返回指定Key的字符值长度，如果Value不是string类型，Redis将执行失败并给出相关的错误信息。</td>
+            <td style="border:1px solid #ddd">返回指定Key的Value字符长度，如果该Key不存在，返回0。</td>
       </tr>
       <tr>
-            <td>SETEX key seconds value</td>
-            <td>原子性完成两个操作，一是设置该Key的值为指定字符串，同时设置该Key在Redis服务器中的存活时间(秒数)。该命令主要应用于Redis被当做Cache服务器使用时。</td>
-            <td> </td>
+            <td style="border:1px solid #ddd">SETEX key seconds value</td>
+            <td style="border:1px solid #ddd">原子性完成两个操作，一是设置该Key的值为指定字符串，同时设置该Key在Redis服务器中的存活时间(秒数)。该命令主要应用于Redis被当做Cache服务器使用时。</td>
+            <td style="border:1px solid #ddd"> </td>
       </tr>
       <tr>
             <td>SETNX key value </td>
