@@ -110,6 +110,18 @@ categories: redis
  </table>
  
  
+ 
+ | 命令原型 | 命令描述 | 返回值 |
+ | -------:|:-------:|------:|
+ | aaaa    | bbbbb   | cccc  |
+ | aaaa    | bbbbb   | cccc  |
+ | aaaa    | bbbbb   | cccc  |
+ | aaaa    | bbbbb   | cccc  |
+ | aaaa    | bbbbb   | cccc  |
+ 
+ 
+ 
+ 
  ### 三、命令示例：
  
  1.SET / GET/ APPEND/ STRLEN
